@@ -10,9 +10,32 @@ void construirTablero() {
         for(int j = 0; j < 3; j++) {
             //este segundo es para el eje "y"
 
-            cout << "_|";
-            //esto es lo que se imprime de nuestro tablero
+            
+            if(i < 2){
 
+                cout << "_";
+                /*creamos esta funcion para que cuando nuestro constructor llegue
+                a la linea 3 ya no imprima el "_" y asi que de bien formado nuestro
+                tablero y usamos un else para reemplazar ese espacio vacio
+                */
+
+            }else{
+                cout << " ";
+                /*
+                con esto podemos sustituir el "_" y asi no se crear el error de sinaxtis
+                en el que quedarias "||" juntos y asi se mostraria como " | | " al llegar a la tercer linea
+                */
+            }
+
+            if(j < 2){
+
+                cout << "|";
+                /*
+                Para que no quede nuestro tablero finalizando siempre con "_|"
+                haremos uso de este otro if que verifica que si estamos en la tercer posicion solo imprima "_"
+                en lugar de imprimer "_|"
+                */
+            }
         }
         
         cout << endl;
