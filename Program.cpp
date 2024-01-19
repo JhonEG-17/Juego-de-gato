@@ -12,7 +12,12 @@ void construirTablero() {
 
             
             if(i < 5 && i % 2 == 1){
-
+                /*
+                Colocamos la condicion i<5 para poder hacer que no se pinten mas "_"
+                de los que deberia y a la ves que pueda tener espacio para poner
+                los caracteres "X" y "O" sin que se borre o encime en los lugares
+                que ocupan los caracteres que conforman nuestro tablero del juego
+                */
                 cout << "___";
                 /*creamos esta funcion para que cuando nuestro constructor llegue
                 a la linea 3 ya no imprima el "_" y asi que de bien formado nuestro
