@@ -4,23 +4,23 @@ using namespace std;
 
 void construirTablero() {
     
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 5; i++) {
         //el primer for es para el eje "x"
 
         for(int j = 0; j < 3; j++) {
             //este segundo es para el eje "y"
 
             
-            if(i < 2){
+            if(i < 5 && i % 2 == 1){
 
-                cout << "_";
+                cout << "___";
                 /*creamos esta funcion para que cuando nuestro constructor llegue
                 a la linea 3 ya no imprima el "_" y asi que de bien formado nuestro
                 tablero y usamos un else para reemplazar ese espacio vacio
                 */
 
             }else{
-                cout << " ";
+                cout << "   ";
                 /*
                 con esto podemos sustituir el "_" y asi no se crear el error de sinaxtis
                 en el que quedarias "||" juntos y asi se mostraria como " | | " al llegar a la tercer linea
