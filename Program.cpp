@@ -2,6 +2,13 @@
 
 using namespace std;
 
+char tablero[3][3];
+/*
+Para colocar los caracteres de X y O que serian nuestras fichas del tablero debemos
+diseñar esta matriz que nos permitga almacenar esos caracteres y poder llamarlos
+cuando se requiera imprimir en pantalla una ficha dentro de nuestro tablero
+*/
+
 void construirTablero() {
     
     for(int i = 0; i < 5; i++) {
@@ -25,11 +32,22 @@ void construirTablero() {
                 */
 
             }else{
-                cout << "   ";
+                if(i < 5){
+                    cout << " " << tablero[0][0] << " ";
                 /*
-                con esto podemos sustituir el "_" y asi no se crear el error de sinaxtis
-                en el que quedarias "||" juntos y asi se mostraria como " | | " al llegar a la tercer linea
+                Ahora modificamos esta seccion agregando un if y dentro de este nuestra mariz para poder hacer que
+                nuestros caracteres X y O se impriman dentro de nuestro tablero, para esto
+                eliminamos dos espacios de los tres que ya tenia nuestro cout y agregamos lo siguiente
+                a la linea de codigo " << tablero[0][0] << " "; "
                 */
+                }else{
+                    cout << "   ";
+                    /*
+                    Condicionamos el proceso para evitar que al final del tablero se coloquen
+                    dos veces los caracteres X y O
+                    */
+                }
+
             }
 
             if(j < 2){
@@ -51,6 +69,11 @@ void construirTablero() {
 
 int main(){
 
+    tablero[0][0] = 'X';
+    /*
+    Ahora para poder provar que en nuestro tablero se imprime correctamente 
+    los caracteres X y O
+    */
     construirTablero();
     
     return 0;
