@@ -3,49 +3,38 @@
 using namespace std;
 
 char tablero[3][3];
+
+int x = 0, y = 0;
 /*
-Para colocar los caracteres de X y O que serian nuestras fichas del tablero debemos
-diseñar esta matriz que nos permitga almacenar esos caracteres y poder llamarlos
-cuando se requiera imprimir en pantalla una ficha dentro de nuestro tablero
+Creamos las variables "X" y "Y" de tipo entero para ser utilizadas
+en las pociciones de nuestra matriz
 */
 
 void construirTablero() {
     
     for(int i = 0; i < 5; i++) {
-        //el primer for es para el eje "x"
-
+        
         for(int j = 0; j < 3; j++) {
-            //este segundo es para el eje "y"
-
             
             if(i < 5 && i % 2 == 1){
-                /*
-                Colocamos la condicion i<5 para poder hacer que no se pinten mas "_"
-                de los que deberia y a la ves que pueda tener espacio para poner
-                los caracteres "X" y "O" sin que se borre o encime en los lugares
-                que ocupan los caracteres que conforman nuestro tablero del juego
-                */
                 cout << "___";
-                /*creamos esta funcion para que cuando nuestro constructor llegue
-                a la linea 3 ya no imprima el "_" y asi que de bien formado nuestro
-                tablero y usamos un else para reemplazar ese espacio vacio
-                */
 
             }else{
                 if(i < 5){
-                    cout << " " << tablero[0][0] << " ";
-                /*
-                Ahora modificamos esta seccion agregando un if y dentro de este nuestra mariz para poder hacer que
-                nuestros caracteres X y O se impriman dentro de nuestro tablero, para esto
-                eliminamos dos espacios de los tres que ya tenia nuestro cout y agregamos lo siguiente
-                a la linea de codigo " << tablero[0][0] << " "; "
-                */
+                    cout << " " << tablero[x][y] << " ";
+                    /*
+                    Ahora sustituimos los "0" dentro de nuestros "[]" por "x,y"
+                    para que podamos nosotros llenarlo manualmente
+                    */
+                   y++;
+                   /*
+                   Ahora aqui desplazamos a "Y" una pocicion hacia abajo
+                   pero esto nos desplasa a la posicion [1][3] de la matriz esto
+                   lo solucionamos en la linea de codigo 48 para que inicie en la pocicion [1][0]
+                   */
                 }else{
                     cout << "   ";
-                    /*
-                    Condicionamos el proceso para evitar que al final del tablero se coloquen
-                    dos veces los caracteres X y O
-                    */
+                    
                 }
 
             }
@@ -53,26 +42,43 @@ void construirTablero() {
             if(j < 2){
 
                 cout << "|";
-                /*
-                Para que no quede nuestro tablero finalizando siempre con "_|"
-                haremos uso de este otro if que verifica que si estamos en la tercer posicion solo imprima "_"
-                en lugar de imprimer "_|"
-                */
+                
             }
         }
-        
+        y = 0;
+        if(i % 2 == 0){
+            x++;
+            /*
+            Colocamos una condicional que hace que cuando x se desplace sea solo
+            si es impar la pocicion en la que se desplaza osea una ves que llegue a la tercer posicion 
+            */ 
+        }
+        /*
+        para poder hacer que inicie a imprimir en la siguiente posicion
+        de la linea siguiente vamos a resetear o reiniciar a "y" en la posicion 0 pero
+        a "x" le vamos a desplazar una pocicion paara que este abanze hacia abajo en el tablero
+        */
         cout << endl;
-        //esto es para dar saltos de linea y asi contruya nuestro "tablero"
+        
     }
 
 }
 
 int main(){
 
-    tablero[0][0] = 'X';
+    tablero[0][0] = 'a';
+    tablero[0][1] = 'b';
+    tablero[0][2] = 'c';
+    tablero[1][0] = 'd';
+    tablero[1][1] = 'e';
+    tablero[1][2] = 'f';
+    tablero[2][0] = 'g';
+    tablero[2][1] = 'h';
+    tablero[2][2] = 'i';
     /*
-    Ahora para poder provar que en nuestro tablero se imprime correctamente 
-    los caracteres X y O
+    Para provar que se esta llenando correctamente todo el tablero 
+    hacemos uso de un llenado manual preestabecido de la matriz
+    tal y como se puede apreciar
     */
     construirTablero();
     
