@@ -4,35 +4,27 @@ using namespace std;
 
 char tablero[3][3];
 
-int x = 0, y = 0;
-/*
-Creamos las variables "X" y "Y" de tipo entero para ser utilizadas
-en las pociciones de nuestra matriz
-*/
-
 void construirTablero() {
     
-    for(int i = 0; i < 5; i++) {
+    int x = 0, y = 0;
+
+    for(int i = 0; i < 6; i++) {
         
         for(int j = 0; j < 3; j++) {
             
             if(i < 5 && i % 2 == 1){
+                
                 cout << "___";
 
             }else{
+
                 if(i < 5){
+                    
                     cout << " " << tablero[x][y] << " ";
-                    /*
-                    Ahora sustituimos los "0" dentro de nuestros "[]" por "x,y"
-                    para que podamos nosotros llenarlo manualmente
-                    */
-                   y++;
-                   /*
-                   Ahora aqui desplazamos a "Y" una pocicion hacia abajo
-                   pero esto nos desplasa a la posicion [1][3] de la matriz esto
-                   lo solucionamos en la linea de codigo 48 para que inicie en la pocicion [1][0]
-                   */
+                    y++;
+
                 }else{
+
                     cout << "   ";
                     
                 }
@@ -45,41 +37,84 @@ void construirTablero() {
                 
             }
         }
+
         y = 0;
+
         if(i % 2 == 0){
             x++;
-            /*
-            Colocamos una condicional que hace que cuando x se desplace sea solo
-            si es impar la pocicion en la que se desplaza osea una ves que llegue a la tercer posicion 
-            */ 
         }
-        /*
-        para poder hacer que inicie a imprimir en la siguiente posicion
-        de la linea siguiente vamos a resetear o reiniciar a "y" en la posicion 0 pero
-        a "x" le vamos a desplazar una pocicion paara que este abanze hacia abajo en el tablero
-        */
+        
         cout << endl;
         
     }
 
 }
 
+void posiblesMovimientos(){
+    cout << "Elige tu proximo movimiento: " << endl;
+    /*
+    Colocamos un mensaje para darle instrucciones al jugador
+    */
+    int contador = 0;
+    /*
+    Creamos un contador para que este se encargue de acomodar los incisos u opciones
+    de forma que quede asi
+    a [0][0]
+    b [0][1]
+    etc...
+    */
+    string opciones = "abcdefghi";
+    /*
+    Iniciamos un string donde colocaremos las opciones posibles del usuario
+    enlistadas por incisos a,b,c,d,e etc...
+    */
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            cout << opciones[contador] << ") [" << i << ", " << j << "]";
+            /*
+            para mostrar en pantalla las posiciones disponibles en el tablero usamos un cout
+            en el que estructuramos un mensaje usando nuestro contador de nuestras opciones
+            y concatenando asi este mismo con las pociciones de nuestra matriz
+            */
+            if(tablero[i][j] != NULL){
+                cout << " OCUPADO";
+                /*
+                Es necesario que si una iocion o posicion esta ocupada ya
+                no se pueda usar por lo que usaremos este mensaje utilizando la condicional if
+                y asi que el juego al comprobar que la posicion es diferente de NUll o que esta llena
+                entonces nos dira que esta ocupada
+                */
+            }
+            cout << endl;
+
+            contador++;
+            /*
+            colocamos contador ++ para poder hacer que cada que se repita el ciclo avanze una posicion
+            en nuestras opciones y asi pueda ir mostrando a, b , c, etc...
+            */
+        }
+    }
+    /*
+    iniciamos el for para poder avanzar en las pociciones que tenemos disponibles
+    y asi el programa nos pueda mostrar que opciones tenemos
+    */
+}
+/*
+se crea una funcion tipo void para poder colocar un mensaje al jugador 
+en el que se le solicite ingresar un movimiento o una jugada en una de las posiciones
+que estan disponibles
+*/
+
 int main(){
 
-    tablero[0][0] = 'a';
-    tablero[0][1] = 'b';
-    tablero[0][2] = 'c';
-    tablero[1][0] = 'd';
-    tablero[1][1] = 'e';
-    tablero[1][2] = 'f';
-    tablero[2][0] = 'g';
-    tablero[2][1] = 'h';
-    tablero[2][2] = 'i';
+    /*tablero[0][0] = 'X';
+    tablero[0][1] = '0';
+    tablero[0][2] = 'X';*/
     /*
-    Para provar que se esta llenando correctamente todo el tablero 
-    hacemos uso de un llenado manual preestabecido de la matriz
-    tal y como se puede apreciar
+    Para comprobar que nuestro sistema esta correcto y avisa cuando este tiene un lugar ocupado
+    vamos a llenar manualmente algunas casillas y correr el programa a fin de ver el resultado esperadon en pantalla
     */
+    posiblesMovimientos();
     construirTablero();
     
     return 0;
