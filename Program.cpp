@@ -1,121 +1,128 @@
-#include<iostream>
+#include <iostream>
+#include <conio.h>
+/*Agregamos nuestra libreria conio.h para poder hacer uso correcto de las nuevas funciones*/
 
 using namespace std;
 
 char tablero[3][3];
+int turno = 0;
+string jugador1 = "Player 1";
+string jugador2 = "Player 2";
+/*Creamos los nombres de los jugadore,
+para este caso vamos a ingresar nombres predeterminados*/
 
 void construirTablero() {
-    
-    int x = 0, y = 0;
-
-    for(int i = 0; i < 6; i++) {
-        
+    for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) {
-            
-            if(i < 5 && i % 2 == 1){
-                
-                cout << "___";
-
-            }else{
-
-                if(i < 5){
-                    
-                    cout << " " << tablero[x][y] << " ";
-                    y++;
-
-                }else{
-
-                    cout << "   ";
-                    
-                }
-
-            }
-
-            if(j < 2){
-
+            cout << " " << tablero[i][j] << " ";
+            if(j < 2) {
                 cout << "|";
-                
             }
         }
-
-        y = 0;
-
-        if(i % 2 == 0){
-            x++;
-        }
-        
         cout << endl;
-        
-    }
-
-}
-
-void posiblesMovimientos(){
-    cout << "Elige tu proximo movimiento: " << endl;
-    /*
-    Colocamos un mensaje para darle instrucciones al jugador
-    */
-    int contador = 0;
-    /*
-    Creamos un contador para que este se encargue de acomodar los incisos u opciones
-    de forma que quede asi
-    a [0][0]
-    b [0][1]
-    etc...
-    */
-    string opciones = "abcdefghi";
-    /*
-    Iniciamos un string donde colocaremos las opciones posibles del usuario
-    enlistadas por incisos a,b,c,d,e etc...
-    */
-    for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-            cout << opciones[contador] << ") [" << i << ", " << j << "]";
-            /*
-            para mostrar en pantalla las posiciones disponibles en el tablero usamos un cout
-            en el que estructuramos un mensaje usando nuestro contador de nuestras opciones
-            y concatenando asi este mismo con las pociciones de nuestra matriz
-            */
-            if(tablero[i][j] != NULL){
-                cout << " OCUPADO";
-                /*
-                Es necesario que si una iocion o posicion esta ocupada ya
-                no se pueda usar por lo que usaremos este mensaje utilizando la condicional if
-                y asi que el juego al comprobar que la posicion es diferente de NUll o que esta llena
-                entonces nos dira que esta ocupada
-                */
-            }
-            cout << endl;
-
-            contador++;
-            /*
-            colocamos contador ++ para poder hacer que cada que se repita el ciclo avanze una posicion
-            en nuestras opciones y asi pueda ir mostrando a, b , c, etc...
-            */
+        if(i < 2) {
+            cout << "-----------" << endl;
         }
     }
-    /*
-    iniciamos el for para poder avanzar en las pociciones que tenemos disponibles
-    y asi el programa nos pueda mostrar que opciones tenemos
-    */
 }
-/*
-se crea una funcion tipo void para poder colocar un mensaje al jugador 
-en el que se le solicite ingresar un movimiento o una jugada en una de las posiciones
-que estan disponibles
-*/
+/*Modificamos la funcion tipo void para poder hacer que el tablero se contruya correctamente
+sin errores como aparecia en el tutorial ya que anteriormente el tablero se imprimia deformado a partir de la 4ta linea
+de impresion en la 4ta linea de la terminal*/
 
-int main(){
+void actualizarTurno(int x, int y) {
+    if (turno % 2 == 0) {
+        tablero[x][y] = 'X';
+    } else {
+        tablero[x][y] = 'O';
+    }
+    turno++;
+}
+/*CREAMOS ESTA FUNCION PARA QUE EL PROGRAMA SEA CAPAS DE VERIFICAR SI YA ESTA OCUPADA UNA DE LAS
+POSICIONES DEL TABLERO DE FORMA AUTOMATICA CADA VES QUE SE INGRESA UNA NUEVA JUGADA O UN NUEVO MOVIMIENTO*/
 
-    /*tablero[0][0] = 'X';
-    tablero[0][1] = '0';
-    tablero[0][2] = 'X';*/
-    /*
-    Para comprobar que nuestro sistema esta correcto y avisa cuando este tiene un lugar ocupado
-    vamos a llenar manualmente algunas casillas y correr el programa a fin de ver el resultado esperadon en pantalla
-    */
-    posiblesMovimientos();
-    construirTablero();
+char posiblesJugadas() {
+    cout << "OPCIONES DE JUEGO:" << endl;
+    int contador = 0;
     
+    string opciones = "abcdefghi";
+    
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            cout << opciones[contador] << ") [" << i << ", " << j << "]";
+            
+            if(tablero[i][j] != '\0') {
+                cout << " OCUPADO";
+            }
+
+            cout << endl;
+            contador++;
+        }
+    }
+    
+    char jugada;
+    cout << "Elige una jugada: ";
+    /*agregadmos este mensaje a nuestras instrucciones para escoger un movimiento o jugada*/
+    jugada = getch();
+    /*creamos un getch para poder ingresar la opcion jugada al sistema*/
+    return jugada;
+}
+/*Modificamos el tipo de funcion void por un tipo char y colocamos la funcion getch();
+para poder hacer que se incerte automaticamente la opcion apenas el jugador precione la opcion deseada*/
+
+int verificarJugada(char jugada) {
+    if(jugada >= 'a' && jugada <= 'i') {
+        int fila, columna;
+        switch (jugada) {
+            case 'a': fila = 0; columna = 0; break;
+            case 'b': fila = 0; columna = 1; break;
+            case 'c': fila = 0; columna = 2; break;
+            case 'd': fila = 1; columna = 0; break;
+            case 'e': fila = 1; columna = 1; break;
+            case 'f': fila = 1; columna = 2; break;
+            case 'g': fila = 2; columna = 0; break;
+            case 'h': fila = 2; columna = 1; break;
+            case 'i': fila = 2; columna = 2; break;
+            /*Se corrigieron las comparaciones de ocupación del tablero en verificarJugada.*/
+        }
+        /*este switch nos verifica que cada opcion de nuestro juego se ingrese en la posicion en nuestro tablero
+        esto lo repetimos en cada caso pero para cada opcion a,b,c,d,e, etc.*/
+        if(tablero[fila][columna] == '\0') {
+            /*Se cambió la comparación de NULL a '\0' para verificar si una posición está vacía debido a que null puede generar
+            errores al querer compilar.*/
+            actualizarTurno(fila, columna);
+            return 1;
+        }
+        /*este otro if una ves que se a creado una nueva jugada y verificado su ingreso verifica que esta no este ocupada
+        haciendo uso de la funcion creada previamente "actualizarTurno" */
+    }
+    return 0;
+}
+
+int main() {
+
+    /*Eliminamos las posiciones predeterminadas que tenia el tablero
+    para poder ingresarlas manualmente*/
+
+    construirTablero();
+    /*llamamos primero a nuestra funcion construir tablero para poder mostrarlo al jugador*/
+
+    char jugada = posiblesJugadas();
+    cout << endl << jugada << endl;
+    /*ahora llamamos a la funcionn posibles jugadas para mostrarle al
+    jugador cuales son las opciones que tiene disponibles para posteriormente imprimmirla en pantalla*/
+
+    if(verificarJugada(jugada)) {
+        construirTablero();
+        /*Una ves recibida la jugada verificamos que esta no se haya utilizado aun para ello
+        vamos a utilizar un if que verifica y si no esta ocupado mediante la llamada de nuestra funcion
+        "verificarJugada" que evalua nuestra variable jugada y si esta esta vacia imprimira el tablero actualizado
+        con la nueva jugada ya en el mismo*/
+    } else {
+        cout << "Posición ocupada. Intenta de nuevo." << endl;
+        /*En el caso de que un jugador seleccione una opcion que no este disponible
+        y para que los usuarios sepan que la posicion esta ocupada
+        se agregó un mensaje para informar al jugador si la posición está ocupada.*/
+    }
+
     return 0;
 }
